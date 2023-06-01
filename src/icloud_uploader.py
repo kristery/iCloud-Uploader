@@ -24,7 +24,9 @@ def login(username, password):
 
     if api.requires_2fa:
         print("Two-factor authentication required.")
-        code = input("Enter the code you received of one of your approved devices: ")
+        code = input(
+            "Enter the code you received of one of your approved devices: "
+        )
         result = api.validate_2fa_code(code)
         print("Code validation result: %s" % result)
 
@@ -50,7 +52,12 @@ def login(username, password):
         for i, device in enumerate(devices):
             print(
                 "  %s: %s"
-                % (i, device.get("deviceName", "SMS to %s" % device.get("phoneNumber")))
+                % (
+                    i,
+                    device.get(
+                        "deviceName", "SMS to %s" % device.get("phoneNumber")
+                    ),
+                )
             )
 
         device = click.prompt("Which device would you like to use?", default=0)
@@ -122,7 +129,11 @@ def main(args):
         if len(new_files) > 0:
             print(f"new files: {new_files}")
         for filename in new_files:
-            if not filename.endswith(".py") and not initial:
+            if (
+                not filename.endswith(".py")
+                and "crdownload" not in filename
+                and not initial
+            ):
                 print(f"uploading {filename}")
 
                 if os.path.isdir(filename):
@@ -180,7 +191,10 @@ if __name__ == "__main__":
         description="Read username, password, and folder name from a file"
     )
     parser.add_argument(
-        "-f", "--file", default="info.txt", help="Input file (default: info.txt)"
+        "-f",
+        "--file",
+        default="info.txt",
+        help="Input file (default: info.txt)",
     )
     args = parser.parse_args()
     main(args)
