@@ -113,7 +113,7 @@ def main(args):
 
     folder_path = "./"
     file_list = os.listdir(folder_path)
-    api = PyiCloudService(username, password)
+    api = login(username, password)
 
     api = build_folder_structure(api, icloud_folder, username, password)
 
